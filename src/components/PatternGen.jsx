@@ -74,21 +74,21 @@ const PatternGen = () => {
       <br/>
       <div>
       Shape count:
-      <input type="range" onChange={(e) => setShapeCount(e.target.value)} value={shapesCount} placeholder="Shapes Count" max={300} min={10} />
+      <input type="range" onChange={(e) => setShapeCount(e.target.value)} value={shapesCount} placeholder="Shapes Count" max={5000} min={10} />
       {shapesCount}
       </div>
       <br/>
 
       <div>
       Shape Sides:
-      <input type="range" onChange={(e) => setShapeSides(e.target.value)} value={shapeSides} placeholder="Shape Sides" max={50} min={2} />
+      <input type="range" onChange={(e) => setShapeSides(e.target.value)} value={shapeSides} placeholder="Shape Sides" max={200} min={2} />
       {shapeSides}
       </div>
       <br/>
 
       <div>
       Shape Size:
-      <input type="range" onChange={(e) => setShapeSize(e.target.value)} value={shapeSize} placeholder="Shape Size" max={1000} min={100} />
+      <input type="range" onChange={(e) => setShapeSize(e.target.value)} value={shapeSize} placeholder="Shape Size" max={5000} min={100} />
       {shapeSize}
       </div>
       <br/>
@@ -103,7 +103,7 @@ const PatternGen = () => {
 
       <div>
       Scale:
-      <input type="range" onChange={(e) => setScale(e.target.value)} value={scale} placeholder="Scale" max={5} min={1} step={0.1} />
+      <input type="range" onChange={(e) => setScale(e.target.value)} value={scale} placeholder="Scale" max={25} min={1} step={0.1} />
       {scale}
       </div>
       <br/>
