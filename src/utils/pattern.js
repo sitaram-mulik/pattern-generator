@@ -32,9 +32,6 @@ export const getRandomColor = () => {
     }
     ctx.closePath();
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    ctx.restore();
   };
   
   export const drawRandomPolygon = (ctx, width, height, sides, cx = null, cy = null, rotation = null) => {

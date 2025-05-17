@@ -5,6 +5,8 @@ const PatternGen = () => {
   const canvasRef = useRef(null);
   const [shapesCount, setShapeCount] = useState(150);
   const [shapeSides, setShapeSides] = useState(2);
+  const [shapeSize, setShapeSize] = useState(200);
+  const [shapeBorder, setShapeBorder] = useState(1);
   const [scale, setScale] = useState(3);
   const [rotationAngle, setRotationAngle] = useState(0); // New state for rotation angle in radians
 
@@ -23,8 +25,7 @@ const PatternGen = () => {
       ctx.scale(scale, scale);
       ctx.translate(-width / 2, -height / 2);
       // Choose a random number of sides for the shape type
-      const size = Math.floor(Math.min(width, height) / 6);
-
+      const size = shapeSize;
       // Generate positions in figure-8 pattern dynamically
       const positions = [];
       for (let i = 0; i < shapesCount; i++) {
@@ -42,11 +43,14 @@ const PatternGen = () => {
         const angle = Math.atan2(centerY - y, centerX - x);
         // Draw polygon at fixed position with rotation
         drawRandomPolygon(ctx, width, height, shapeSides, x, y, angle);
+        ctx.lineWidth = shapeBorder;
+        ctx.stroke();
+        ctx.restore();
       });
 
       ctx.restore();
     }
-  }, [shapesCount, shapeSides, scale, rotationAngle]);
+  }, [shapesCount, shapeSides, scale, rotationAngle, shapeSize, shapeBorder]);
 
   const downloadPattern = () => {
     const _canvas = canvasRef.current;
@@ -70,7 +74,7 @@ const PatternGen = () => {
       <br/>
       <div>
       Shape count:
-      <input type="range" onChange={(e) => setShapeCount(e.target.value)} value={shapesCount} placeholder="Shapes Count" max={300} min={1} />
+      <input type="range" onChange={(e) => setShapeCount(e.target.value)} value={shapesCount} placeholder="Shapes Count" max={300} min={10} />
       {shapesCount}
       </div>
       <br/>
@@ -79,6 +83,21 @@ const PatternGen = () => {
       Shape Sides:
       <input type="range" onChange={(e) => setShapeSides(e.target.value)} value={shapeSides} placeholder="Shape Sides" max={50} min={2} />
       {shapeSides}
+      </div>
+      <br/>
+
+      <div>
+      Shape Size:
+      <input type="range" onChange={(e) => setShapeSize(e.target.value)} value={shapeSize} placeholder="Shape Size" max={1000} min={100} />
+      {shapeSize}
+      </div>
+      <br/>
+
+
+      <div>
+      Shape border:
+      <input type="range" onChange={(e) => setShapeBorder(e.target.value)} value={shapeBorder} placeholder="Shape Border" max={100} min={1} />
+      {shapeBorder}
       </div>
       <br/>
 
