@@ -6,6 +6,7 @@ const PatternGen = () => {
   const [shapesCount, setShapeCount] = useState(150);
   const [shapeSides, setShapeSides] = useState(2);
   const [scale, setScale] = useState(3);
+  const [rotationAngle, setRotationAngle] = useState(0); // New state for rotation angle in radians
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,8 +17,9 @@ const PatternGen = () => {
       // Clear canvas
       ctx.clearRect(0, 0, width, height);
       ctx.save();
-      // Translate to center for zoom
+      // Translate to center for zoom and rotation
       ctx.translate(width / 2, height / 2);
+      ctx.rotate(rotationAngle); // Apply rotation
       ctx.scale(scale, scale);
       ctx.translate(-width / 2, -height / 2);
       // Choose a random number of sides for the shape type
@@ -44,7 +46,7 @@ const PatternGen = () => {
 
       ctx.restore();
     }
-  }, [shapesCount, shapeSides, scale]);
+  }, [shapesCount, shapeSides, scale, rotationAngle]);
 
   const downloadPattern = () => {
     const _canvas = canvasRef.current;
@@ -84,6 +86,21 @@ const PatternGen = () => {
       Scale:
       <input type="range" onChange={(e) => setScale(e.target.value)} value={scale} placeholder="Scale" max={5} min={1} step={0.1} />
       {scale}
+      </div>
+      <br/>
+
+      <div>
+      Rotation:
+      <input
+        type="range"
+        onChange={(e) => setRotationAngle((e.target.value * Math.PI) / 180)}
+        value={(rotationAngle * 180) / Math.PI}
+        placeholder="Rotation Angle"
+        max={360}
+        min={0}
+        step={1}
+      />
+      {Math.round((rotationAngle * 180) / Math.PI)}°
       </div>
       <br/>
       <button onClick={downloadPattern}>Download</button>
